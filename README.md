@@ -104,3 +104,28 @@ Pages live at `<slug>/index.html`, so directory URLs need index resolution:
 
 Set `Content-Type` correctly on upload (aws-cli infers from extension, which
 now works). Fonts may need explicit types if your CLI lacks `.woff2`.
+
+### Rendering fix: collapsed spacers (`wp-content/mirror-fixes.css`)
+
+The live site has a latent Elementor bug that the mirror faithfully reproduced.
+Elementor publishes a `--spacer-size` custom property for every spacer widget
+(in `wp-content/uploads/elementor/css/post-*.css`), but the rule that *consumes*
+it lives in Elementor's `widget-spacer.min.css` — which this site never enqueues.
+With no consumer, every spacer computes to `height: 0`.
+
+On the home page the hero relies on a 510px spacer for its height, so the whole
+background slideshow collapsed to a ~20px sliver. The slideshow itself was
+working the whole time — images were loading and cycling, there was just no
+height to show them in.
+
+`wp-content/mirror-fixes.css` restores the one missing declaration and is linked
+from all 38 pages. Verified: hero 20px -> 530px.
+
+Note this bug is present on the live site too — it is not a crawl artifact.
+
+### Project pages have no header image
+
+Project pages (`cohen-family/`, `metzada-23/`, …) show a plain light band above
+the title. That matches the live site exactly: their page CSS references only
+the decorative brush graphic (`מרקר.png`) and a stripe, with no hero photo. The
+mirror is not missing anything here.

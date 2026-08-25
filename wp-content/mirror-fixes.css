@@ -1,0 +1,18 @@
+/* ---------------------------------------------------------------
+   Static-mirror fixes for morandesignstudio.com
+   ---------------------------------------------------------------
+   Elementor sets --spacer-size on every spacer widget (in the
+   per-page wp-content/uploads/elementor/css/post-*.css files), but
+   the rule that CONSUMES that variable lives in Elementor's
+   widget-spacer.min.css, which this site never enqueues. Without it
+   every spacer collapses to 0px, so hero sections that rely on a
+   spacer for their height collapse too - taking the background
+   image / background slideshow down to a ~20px sliver.
+
+   This restores the single missing declaration. It affects spacer
+   widgets only, and reads the size Elementor already published, so
+   responsive breakpoints keep working.
+   --------------------------------------------------------------- */
+.elementor-widget-spacer .elementor-spacer-inner {
+	height: var(--spacer-size);
+}
