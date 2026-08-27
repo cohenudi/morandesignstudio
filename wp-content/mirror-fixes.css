@@ -16,3 +16,30 @@
 .elementor-widget-spacer .elementor-spacer-inner {
 	height: var(--spacer-size);
 }
+
+/* ---------------------------------------------------------------
+   Contact form states (see wp-content/contact-form.js).
+   The Elementor form posts to Formspree now; these style the
+   in-place success / error / not-yet-configured messages.
+   --------------------------------------------------------------- */
+.mirror-form-message {
+	padding: 18px 0;
+	text-align: center;
+	font-size: 16px;
+	line-height: 1.6;
+}
+
+.mirror-form-error {
+	width: 100%;
+	padding: 12px 0 0;
+	text-align: center;
+	line-height: 1.6;
+}
+
+.mirror-form-notice {
+	padding-top: 8px;
+}
+
+.mirror-form-notice a {
+	text-decoration: underline;
+}
